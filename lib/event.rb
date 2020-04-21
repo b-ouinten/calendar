@@ -7,6 +7,10 @@ class Event
     @title = title
     @attendees = attendees.map { |attendee| User.new(attendee.first, attendee.last) }
   end
+
+  def add_attendee(user)
+    @attendees << user
+  end
   
   def postpone_24h
     @start_date += 60*60*24
@@ -37,6 +41,6 @@ class Event
     puts ">Start date : #{@start_date.strftime("%H:%M:%S %d/%m/%Y")}"
     puts ">Duration : #{@duration} minutes"
     print ">Attendees : " 
-    @attendees.each { |attendee| print(attendee.get_email, ". ") }
+    @attendees.map { |attendee| attendee.get_email }.join(',')
   end
 end
